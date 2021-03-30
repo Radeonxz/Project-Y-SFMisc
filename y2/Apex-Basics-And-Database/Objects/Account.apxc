@@ -1,0 +1,22 @@
+Account acct = new Account(Name='Acme');
+
+Account acct = new Account();
+
+Account acct = new Account(Name='Acme');
+
+Account acct = new Account(Name='Acme', Phone='(415)555-1212', NumberOfEmployees=100);
+
+Account acct = new Account();
+acct.Name = 'Acme';
+acct.Phone = '(415)555-1212';
+acct.NumberOfEmployees = 100;
+
+sObject sobj1 = new Account(Name='Trailhead');
+sObject sobj2 = new Book__c(Name='Workbook 1');
+
+// Cast a generic sObject to an Account
+Account acct = (Account)myGenericSObject;
+// Now, you can use the dot notation to access fields on Account
+String name = acct.Name;
+String phone = acct.Phone;
+
