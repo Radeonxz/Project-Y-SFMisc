@@ -10,6 +10,10 @@ This `metadata-driven development model` is one of the key differences between d
 
 The platform provides a handy tool called Schema Builder so you can see your entity relationship model in action.
 
-1. Navigate to Setup by clicking the gear menu. and then clicking `Setup`.
+1. Navigate to Setup by clicking the gear menu and then clicking `Setup`.
 2. Search for Schema Builder in the Quick Find box. When you initially open Schema Builder, you see all the custom and standard objects in your org.
 3. Clear all current selections. From the Select from menu, choose Custom Objects and then select all.
+
+## No-Code and Low-Code Development
+
+Salesforce offers a host of tools for point-and-click—or `declarative`—development. Most of these tools require little to no understanding of development principles: no code. Someone who thinks JSON is just missing a letter can construct a robust and complex data model. A person who hears Cron and thinks it’s some kind of sci-fi film can schedule batch jobs.

@@ -18,7 +18,7 @@ Salesforce comes with a lot of `standard functionality`, or out-of-the-box produ
 
 Developing without code is known as `declarative development`. With declarative development, you use forms and drag-and-drop tools to perform powerful customization tasks. The platform also offers `programmatic development`, which uses things like Lightning components. But if you’re not a programmer, you can still build some amazing things on the platform.
 
-1. From the gear icon, click Setup to launch the setup page. We use Setup a lot, so remember this step!
+1. From the gear icon click Setup to launch the setup page. We use Setup a lot, so remember this step!
 2. Click the `Object Manager` tab.
 3. Click `Contact`.
 4. Under Fields & Relationships, click `New`.
