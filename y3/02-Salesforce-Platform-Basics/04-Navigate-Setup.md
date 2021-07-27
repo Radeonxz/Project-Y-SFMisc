@@ -2,7 +2,7 @@
 
 ## Setup
 
-![image](./sf-setup.png)
+![image](./04-sf-setup.png)
 
 1. `Object Manager`: Object Manager is where you can view and customize standard and custom objects in your org.
 2. `Setup Menu`: The menu gives you quick links to a collection of pages that let you do everything from managing your users to modifying security settings.
@@ -16,7 +16,7 @@ There are three main categories in the Setup menu: `Administration`, `Platform T
 - `Platform Tools`: You do most of your customization in Platform Tools. You can view and manage your data model, create apps, modify the user interface, and deploy new features to your users. If you decide to try your hand at programmatic development, Platform Tools is where you manage your code as well.
 - `Settings`: Finally, Settings is where you manage your company information and org security. You can do things like add business hours, change your locale, and view your org’s history.
 
-![image](./setup-pages.png)
+![image](./04-setup-pages.png)
 
 ## Quiz
 

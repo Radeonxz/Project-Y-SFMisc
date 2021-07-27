@@ -152,3 +152,19 @@ You can use the following markup code to render a simple page used to enter Cont
   </apex:form>
 </apex:page>
 ```
+
+The example uses what is known as a `standard controller`, which is part of the Lightning Platform. It’s basically system-generated code that allows you to quickly incorporate basic CRUD functionality in your Visualforce pages. But before you start getting worried, just know that you can create your own custom controllers to add in more complex functioning. Learn all about how standard and custom controllers work in the Visualforce Basics module. The rendered version of this page looks like the following:
+
+![image](./01-custom-controller-example.png)
+
+## What Is Different?
+
+Now that you know a little about how Apex is similar to `.NET`, let’s go over some differences. For starters, unlike `C#`, `Apex` is not case sensitive.
+
+### Apex and Database are Tightly Coupled
+
+`Apex` code and the `Lightning Platform database` are tightly coupled to the point where they are sometimes indistinguishable. Each standard or custom object in the database has a "mystical" representation via an Apex class that provides all sorts of functionality to make interacting with the database a snap. The `class` and its `underlying object` are essentially a `mirror image` of one another that is constantly in sync. For instance, whenever you create a new field in an object, a class member is automatically surfaced to reference the values in the database. It's also `impossible` to add a `reference` in your Apex code to a field that doesn't exist; the compiler will return an error and simply not save your code. The platform works hard to ensure these dependencies and won't let the database schema and your code become out of sync. Therefore, if you attempt to delete a custom object or a field that is referenced by Apex code, the platform will raise an error and disallow the action.
+
+### Unit Tests Are Required
+
+What is different on the Lightning Platform is that you must have `75% test coverage` to deploy your Apex code to a `production org`.
