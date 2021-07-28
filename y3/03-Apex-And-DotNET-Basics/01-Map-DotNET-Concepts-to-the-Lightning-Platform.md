@@ -168,3 +168,88 @@ Now that you know a little about how Apex is similar to `.NET`, let’s go over 
 ### Unit Tests Are Required
 
 What is different on the Lightning Platform is that you must have `75% test coverage` to deploy your Apex code to a `production org`.
+
+### No Solution, Project, or Config Files
+
+The Lightning Platform has no such thing as a solution or project file. You can create an application, but it’s not the same as creating a .NET application or assembly.
+
+An application on the Lightning Platform is just a loose collection of `components`, such as `tabs`, `reports`, `dashboards`, and `pages`.
+
+All your code resides and executes in the `cloud`. There is also no such thing as a `config file` in the Lightning Platform world. Because the database is baked right in, you don’t need connection strings. And unlike ASP.NET MVC, you don’t need to configure routes. You can create custom settings in Salesforce, but these are added and managed declaratively.
+
+### A Much Smaller Class Library
+
+The Apex class library is considerably smaller than the .NET Framework class library.
+
+### Development Tools
+
+### Handling Security
+
+`Identity` is handled by the platform. You can control access to data at many different levels, including object level, record level, and field level.
+
+`Security` is also handled declaratively. In many cases, security is defined and set up by a Salesforce administrator.
+
+### Integration
+
+You can integrate with the platform in a number of ways, but you’ll probably use `SOAP` and `REST` the most.
+
+You can create and expose web services using the Apex programming language, as well as invoke external web services from Apex. You can also react to incoming email messages and have automated outbound messages sent when certain events occur.
+
+## Create an Apex Class
+
+1. From Setup in your Developer org, select `Your Name` > `Developer Console` to open Developer Console.
+2. In Developer Console, select `File` > `New` > `Apex Class`.
+3. Enter EmailManager as the class name and click `OK`.
+4. Delete the existing code, and insert the following snippet:
+
+```
+public with sharing class EmailManager {
+    // Public method
+    public static void sendMail(String address, String subject, String body) {
+        // Create an email message object
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] {address};
+        mail.setToAddresses(toAddresses);
+        mail.setSubject(subject);
+        mail.setPlainTextBody(body);
+        // Pass this email message to the built-in sendEmail method
+        // of the Messaging class
+        Messaging.SendEmailResult[] results = Messaging.sendEmail(
+            new Messaging.SingleEmailMessage[] { mail });
+        // Call a helper method to inspect the returned results.
+        inspectResults(results);
+    }
+    // Helper method
+    private static Boolean inspectResults(Messaging.SendEmailResult[] results) {
+        Boolean sendResult = true;
+        // sendEmail returns an array of result objects.
+        // Iterate through the list to inspect results.
+        // In this class, the methods send only one email,
+        // so we should have only one result.
+        for (Messaging.SendEmailResult res : results) {
+            if (res.isSuccess()) {
+                System.debug('Email sent successfully');
+            } else {
+                sendResult = false;
+                System.debug('The following errors occurred: ' + res.getErrors());
+            }
+        }
+        return sendResult;
+    }
+}
+```
+
+## Invoke a Method
+
+Because we declared the public sendMail method as static, we can access it without creating an instance of the class. We can do so easily by using Anonymous Apex in Developer Console.
+
+1. From Setup, select `Your Name` > `Developer Console` to open Developer Console.
+2. Select `Debug` > `Open Execute Anonymous Window`.
+3. Delete the existing code, and insert the following snippet:
+
+```
+EmailManager.sendMail('Your email address', 'Trailhead Tutorial', '123 body');
+```
+
+4. Make sure that the Open Log option is selected, and click `Execute`. A new tab shows you the execution log.
+5. Select the `Debug Only` option so that you see only the debug statements displayed in the log. You should see a message telling you that the Email was sent successfully. You should also receive an email if you entered a valid email address.
