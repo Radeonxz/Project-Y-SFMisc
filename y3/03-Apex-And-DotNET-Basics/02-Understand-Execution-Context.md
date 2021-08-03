@@ -58,3 +58,38 @@ public with sharing class AccountHandler {
 ```
 
 5. Press `Ctrl + S` to save your class.
+
+Create the Account trigger
+
+1. In Developer Console, select `File` > `New` > `Apex Trigger`.
+2. Enter AccountTrigger as the name, and select Account as the sObject.
+3. Click `Submit`.
+4. Delete the existing code, and insert the following snippet:
+
+```
+trigger AccountTrigger on Account (before insert, before update, before
+    delete, after insert, after update, after delete,  after undelete) {
+    if (Trigger.isAfter && Trigger.isInsert) {
+        AccountHandler.CreateNewOpportunity(Trigger.New);
+    }
+}
+```
+
+5. Press `Ctrl + S` to save your trigger.
+
+Execute anonymous code to simulate a user entering a new Account using the Salesforce interface. Remember, Apex code can be executed a number of different ways.
+
+1. From Setup, select Your Name > `Developer Console` to open Developer Console.
+2. Select `Debug` > `Open Execute Anonymous Window`.
+3. Delete the existing code, and insert the following snippet:
+
+```
+Account acct = new Account(
+    Name='Test Account 2',
+    Phone='(415)555-8989',
+    NumberOfEmployees=50,
+    BillingCity='San Francisco');
+insert acct;
+```
+
+4. Make sure that the Open Log option is selected and click `Execute`. A new tab shows the execution log. Keep it open so that you can examine it carefully.
