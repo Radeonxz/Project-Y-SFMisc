@@ -93,3 +93,38 @@ insert acct;
 ```
 
 4. Make sure that the Open Log option is selected and click `Execute`. A new tab shows the execution log. Keep it open so that you can examine it carefully.
+
+## Examining the Execution Log
+
+Notice that the first line in the execution log marks the EXECUTION_STARTED event and that the last line is the EXECUTION_FINISHED event. Everything in between is the execution context.
+
+![image](./02-execution-log.png)
+
+The second `CODE_UNIT_STARTED` line that is highlighted represents when code for the `BeforeInsert` event was executed.
+
+## Working with Limits
+
+And this brings us back to the subject of working with limits. The two limits you will probably be the most concerned with involve the number of SOQL queries or DML statements. These tend to trip up developers new to the platform, so we wanted to spend some extra time focusing on how to avoid them.
+
+### Working in Bulk
+
+`Apex triggers` can receive `up` to `200 objects` at once. Currently, the synchronous limit for the total number of `SOQL queries` is `100`, and `150` for the total number of `DML` statements issued.
+
+The trigger handler code we created earlier didn’t use a bulk pattern, and therefore it’s prone to limits errors. To remind you, below is what the original code looked like.
+
+```
+public with sharing class AccountHandler {
+    public static void CreateNewOpportunity(List<Account> accts) {
+        for (Account a : accts) {
+            Opportunity opp = new Opportunity();
+            opp.Name = a.Name + ' Opportunity';
+            opp.AccountId = a.Id;
+            opp.StageName = 'Prospecting';
+            opp.CloseDate = System.Today().addMonths(1);
+            insert opp;
+        }
+    }
+}
+```
+
+Notice that the insert DML operation is inside the for loop. This is bad, very bad, and something to always avoid.
