@@ -128,3 +128,69 @@ public with sharing class AccountHandler {
 ```
 
 Notice that the insert DML operation is inside the for loop. This is bad, very bad, and something to always avoid.
+
+Changing it to write to a list variable inside of the loop and then insert the contents of the list in one step.
+
+1. From Setup, select Your Name > `Developer Console` to open Developer Console.
+2. In Developer Console, select `File` > `Open`.
+3. For the entity type, select `Classes`. Select `AccountHandler` as the entity.
+   Click `Open`.
+4. Delete the existing code, and insert the following snippet:
+
+```
+public with sharing class AccountHandler {
+    public static void CreateNewOpportunity(List<Account> accts) {
+        List<Opportunity> opps = new List<Opportunity>();
+        for (Account a : accts) {
+            Opportunity opp = new Opportunity();
+            opp.Name = a.Name + ' Opportunity';
+            opp.AccountId = a.Id;
+            opp.StageName = 'Prospecting';
+            opp.CloseDate = System.Today().addMonths(1);
+            opps.add(opp);
+        }
+        if (opps.size() > 0) {
+            insert opps;
+        }
+    }
+}
+```
+
+6. Press `Ctrl + S` to save your class.
+
+Add unit test for the trigger:
+
+1. In Developer Console, select `File` > `New` > `Apex Class`.
+2. Enter AccountTrigger_Test for the class name and click `OK`.
+3. Delete the existing code, and insert the following snippet:
+
+```
+@isTest
+private class AccountTrigger_Test {
+    @isTest static void TestCreateNewAccountInBulk() {
+        // Test Setup data
+        // Create 200 new Accounts
+        List<Account> accts = new List<Account>();
+        for(Integer i=0; i < 200; i++) {
+            Account acct = new Account(Name='Test Account ' + i);
+            accts.add(acct);
+        }
+        // Perform Test
+        Test.startTest();
+        insert accts;
+        Test.stopTest();
+        // Verify that 200 new Accounts were inserted
+        List<Account> verifyAccts = [SELECT Id FROM Account];
+        System.assertEquals(200, verifyAccts.size());
+        // Also verify that 200 new Opportunities were inserted
+        List<Opportunity> verifyOpps = [SELECT Id FROM Opportunity];
+        System.assertEquals(200, verifyOpps.size());
+    }
+}
+```
+
+4. Press `Ctrl + S` to save your class.
+5. Select `Test` > `New Run`.
+6. Select AccountTrigger_Test as the TestClass, and TestCreateNewAccountInBulk as the test method.
+7. Click `Run`.
+8. Select the `Test` tab and verify that the test runs to completion with no failures, as indicated by a green checkmark in the Status column.
