@@ -70,3 +70,26 @@ In the Aura Component programming model, a component is a bundle of code. It can
 ## Visualforce
 
 Visualforce was created **before** mobile apps on phones became a thing. While you can develop mobile apps with Visualforce, none of the built-in components are mobile-savvy. Which means you write more code. Lightning Components, on the other hand, is specifically optimized to perform well on mobile devices.
+
+## Quiz
+
+### 1. Which of the following descriptions about the Lightning Component framework is true?
+
+- A. It's a UI framework for developing web apps for mobile and desktop devices.
+- B. It uses JavaScript on the client side and Apex on the server side.
+- C. It's a modern framework for building single-page applications.
+- D. :heavy_check_mark:All of the above
+
+#### 2. What can you build with the Lightning Component framework?
+
+- A. Standalone app
+- B. Components to use inside Visualforce pages
+- C. Drag-and-drop components for Lightning App Builder
+- D. :heavy_check_mark:All of the above
+
+### 3. How is the Lightning Component framework different from other web app frameworks?
+
+- A. It is optimized for both mobile and desktop experiences and proves it with Salesforce1 and Lightning Experience.
+- B. It connects natively with services provided by the Salesforce platform.
+- C. It has specific opinions about how data access is performed and has specific security requirements.
+- D. :heavy_check_mark:All of the above
